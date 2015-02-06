@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="drawing_pathline">Track Line</string>
+    <string name="drawing_straightline">Straight Line</string>
+    <string name="drawing_rect">Rectangle</string>
+    <string name="drawing_vertical_striped_rect">Vertical Striped Rectangle</string>
+    <string name="drawing_horizontal_striped_rect">Horizontal Striped Rectangle</string>
+    <string name="drawing_slanted_striped_rect">Slanted Striped Rectangle</string>
+    <string name="drawing_oval">Oval</string>
+    <string name="drawing_circle">Circle</string>
+    <string name="drawing_dots">Dots</string>
+    <string name="drawing_eraser">Eraser</string>
+</resources>

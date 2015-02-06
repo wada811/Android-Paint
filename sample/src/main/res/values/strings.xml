@@ -1,0 +1,28 @@
+<resources>
+    <string name="app_name">Android-Paint</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+
+
+
+    <!-- menu title start -->
+    <string name="menu_title_setting">Settings</string>
+    <string name="menu_title_save">Save</string>
+    <string name="menu_title_clear_screen">Clear</string>
+    <string name="menu_title_what_to_draw">Shapes</string>
+    <string name="menu_title_quit">Quit</string>
+    <string name="menu_title_about">About</string>
+    <!-- menu title end -->
+
+    <!-- 2011-10-01 [start] -->
+    <string name="setting_about_key">setting_about_key</string>
+    <string name="setting_about_title">About</string>
+    <string name="setting_about_summary">About</string>
+    <string name="setting_about_version_key">setting_about_version_key</string>
+    <string name="setting_about_version_title">Version Number</string>
+    <string name="setting_about_build_key">setting_about_build_key</string>
+    <string name="setting_about_build_title">Last built time</string>
+    <!-- 2011-10-01 [end] -->
+
+</resources>

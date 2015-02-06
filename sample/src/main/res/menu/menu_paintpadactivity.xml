@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/menu_id_what_to_draw"
+        android:icon="@android:drawable/ic_menu_manage"
+        android:title="@string/menu_title_what_to_draw">
+    </item>
+
+    <item
+        android:id="@+id/menu_id_clear_screen"
+        android:icon="@android:drawable/ic_menu_revert"
+        android:title="@string/menu_title_clear_screen">
+    </item>
+
+    <item
+        android:id="@+id/menu_id_save"
+        android:icon="@android:drawable/ic_menu_save"
+        android:title="@string/menu_title_save">
+    </item>
+
+    <item
+        android:id="@+id/menu_id_setting"
+        android:icon="@android:drawable/ic_menu_preferences"
+        android:title="@string/menu_title_setting">
+    </item>
+</menu>

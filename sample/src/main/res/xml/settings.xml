@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <PreferenceCategory
+        android:key="@string/pen_key"
+        android:summary="@string/pen_summary"
+        android:title="@string/pen_title" >
+        <Preference
+            android:key="@string/pen_width_key"
+            android:summary="@string/pen_width_summary"
+            android:title="@string/pen_width_title" >
+        </Preference>
+        <Preference
+            android:key="@string/pen_color_key"
+            android:summary="@string/pen_color_summary"
+            android:title="@string/pen_color_title" >
+        </Preference>
+
+        <CheckBoxPreference
+            android:defaultValue="@string/checkbox_default_false"
+            android:key="@string/pen_style_key"
+            android:summaryOff="@string/pen_style_summary_off"
+            android:summaryOn="@string/pen_style_summary_on"
+            android:title="@string/pen_style_title" >
+        </CheckBoxPreference>
+    </PreferenceCategory>
+    <PreferenceCategory
+        android:key="@string/setting_screen_key"
+        android:summary="@string/setting_screen_summary"
+        android:title="@string/setting_screen_title" >
+        <CheckBoxPreference
+            android:defaultValue="@string/checkbox_default_false"
+            android:key="@string/check_full_screen_key"
+            android:summaryOff="@string/full_screen_off"
+            android:summaryOn="@string/full_screen_on"
+            android:title="@string/full_screen_title" >
+        </CheckBoxPreference>
+    </PreferenceCategory>
+
+    <!-- 2011-10-01 [start] -->
+    <PreferenceCategory
+        android:key="@string/setting_about_key"
+        android:title="@string/setting_about_title" >
+        <Preference
+            style="?android:preferenceInformationStyle"
+            android:key="@string/setting_about_version_key"
+            android:title="@string/setting_about_version_title" >
+        </Preference>
+        <Preference
+            style="?android:preferenceInformationStyle"
+            android:key="@string/setting_about_build_key"
+            android:title="@string/setting_about_build_title" >
+        </Preference>
+    </PreferenceCategory>
+    <!-- 2011-10-01 [end] -->
+
+</PreferenceScreen>

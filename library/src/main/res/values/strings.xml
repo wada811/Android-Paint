@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Android-Paint</string>
+    <string name="dialog_title_what_to_draw">Select what to draw</string>
+    <string name="dialog_title_save_it_or_not">Save it or not?</string>
+    <string name="alert_dialog_no">No</string>
+    <string name="tip_current_is_drawing">Is drawing： </string>
+    <string name="dialog_input_text">Plase input: </string>
+    <string name="alert_dialog_ok">Yes</string>
+    <string name="alert_dialog_cancel">Cancel</string>
+    <string name="tip_press_again_to_save_bitmap_before_leaving">Leaving... Press again to save the bitmap.</string>
+
+    <!-- settings start -->
+    <string name="pen_title">Brush</string>
+    <string name="pen_key">pen_key</string>
+    <string name="pen_summary">Brush settings</string>
+    <string name="pen_width_title">Width</string>
+    <string name="pen_width_key">pen_width_key</string>
+    <string name="pen_width_summary">Set the width of the brush</string>
+    <string name="pen_color_title">Color</string>
+    <string name="pen_color_key">pen_color_key</string>
+    <string name="pen_color_summary">Set the color of the brush</string>
+    <string name="checkbox_default_true">true</string>
+    <string name="checkbox_default_false">false</string>
+    <string name="pen_style_title">Style</string>
+    <string name="pen_style_key">pen_style_key</string>
+    <string name="pen_style_summary_on">The inner of the shape will be filled</string>
+    <string name="pen_style_summary_off">The inner of the shape will not be filled</string>
+    <string name="canvas_title">Canvas</string>
+    <string name="canvas_key">canvas_key</string>
+    <string name="canvas_summary">Canvas settings</string>
+    <string name="canvas_bgcolor_title">Background color</string>
+    <string name="canvas_bgcolor_key">canvas_bgcolor_key</string>
+    <string name="canvas_bgcolor_summary">Set the background color of the canvas</string>
+    <string name="setting_screen_key">setting_screen_key</string>
+    <string name="setting_screen_title">Screen</string>
+    <string name="setting_screen_summary">Screen setting</string>
+    <string name="check_full_screen_key">check_full_screen</string>
+    <string name="full_screen_title">Full screen</string>
+    <string name="full_screen_on">Full screen when start up</string>
+    <string name="full_screen_off">Do not full screen when start up</string>
+    <!-- settings end -->
+
+
+    <!-- save start -->
+    <string name="folder_name_in_sdcard">PaintPad</string>
+    <!-- save end -->
+
+
+    <!-- tips start -->
+    <string name="tip_sdcard_is_read_only">Failed to save, the sdcard is not writable.</string>
+    <string name="tip_sdcard_is_not_available">Failed to save, did not find sdcard.</string>
+    <string name="tip_save_to">Saved to:</string>
+    <string name="tip_sava_failed">Failed to save</string>
+    <string name="tip_choose_color">Pick a color:</string>
+    <string name="tip_touch_to_draw">Touch to draw</string>
+    <!-- tips end -->
+
+</resources>

@@ -133,7 +133,7 @@ public class PaintView extends View {
         drawing.fingerDown(x, y, canvas);
     }
 
-    public Bitmap setBitmap(Bitmap bitmap){
+    public void setBitmap(Bitmap bitmap){
         this.bitmap = bitmap;
         canvas = new Canvas(bitmap);
         // Set the background color

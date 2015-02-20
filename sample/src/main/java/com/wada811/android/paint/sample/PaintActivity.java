@@ -112,7 +112,8 @@ public class PaintActivity extends ActionBarActivity implements OnSharedPreferen
                 showDialog(PaintActivity.DIALOG_SAVE_IT_OR_NOT);
                 return true;
             case KeyEvent.KEYCODE_DPAD_CENTER:
-                paintView.saveBitmap();
+                //TODO
+                //paintView.saveBitmap();
                 finish();
                 return true;
             case KeyEvent.KEYCODE_DPAD_DOWN:
@@ -129,7 +130,8 @@ public class PaintActivity extends ActionBarActivity implements OnSharedPreferen
     private void handleBackKeyDown(){
         if(mCount > 0){
             mCount = 0;
-            paintView.saveBitmap();
+            //TODO
+            //paintView.saveBitmap();
         }else{
             mCount++;
 
@@ -225,7 +227,8 @@ public class PaintActivity extends ActionBarActivity implements OnSharedPreferen
 
                 @Override
                 public void onClick(DialogInterface dialog, int which){
-                    paintView.saveBitmap();
+                    //TODO
+                    //paintView.saveBitmap();
                     finish();
                 }
             }
@@ -301,7 +304,8 @@ public class PaintActivity extends ActionBarActivity implements OnSharedPreferen
                 startSettingsActivity();
                 break;
             case R.id.menu_id_save:
-                paintView.saveBitmap();
+                //TODO
+                //paintView.saveBitmap();
                 break;
             case R.id.menu_id_clear_screen:
                 paintView.clearCanvas();

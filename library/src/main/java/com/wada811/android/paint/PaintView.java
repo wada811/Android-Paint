@@ -6,6 +6,7 @@ import android.graphics.Bitmap.Config;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.os.Environment;
+import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Toast;
@@ -30,32 +31,14 @@ public class PaintView extends View {
     private float penX, penY;
     private int bgColor;
 
-    /**
-     * Set the shape that is drawing.
-     *
-     * @param drawing Which shape to drawing current.
-     */
-    public void setDrawing(Drawing drawing){
-        this.drawing = drawing;
-    }
-
     public PaintView(Context context){
         super(context);
         this.context = context;
-        // Get the information about the screen.
-        //ScreenInfo screenInfo = new ScreenInfo((Activity)context);
+    }
 
-        /**
-         * Create a bitmap with the size of the screen.
-         */
-        bitmap = Bitmap.createBitmap(480, 480, Config.ARGB_8888);
-
-        canvas = new Canvas(bitmap);
-
-        // Set the background color
-        canvas.drawColor(getResources().getColor(R.color.transparent));
-
-        isMoving = false;
+    public PaintView(Context context, AttributeSet attributeSet){
+        super(context, attributeSet);
+        this.context = context;
     }
 
     @Override
@@ -150,36 +133,26 @@ public class PaintView extends View {
         drawing.fingerDown(x, y, canvas);
     }
 
+    public Bitmap setBitmap(Bitmap bitmap){
+        this.bitmap = bitmap;
+        canvas = new Canvas(bitmap);
+        // Set the background color
+        canvas.drawColor(getResources().getColor(R.color.transparent));
+
+        isMoving = false;
+    }
+
     public Bitmap getBitmap(){
         return bitmap.copy(Config.ARGB_8888, true);
     }
 
     /**
-     * Check the sdcard is available or not.
+     * Set the shape that is drawing.
+     *
+     * @param drawing Which shape to drawing current.
      */
-    public void saveBitmap(){
-        String state = Environment.getExternalStorageState();
-
-        if(Environment.MEDIA_MOUNTED.equals(state)){
-            saveToSdcard();
-        }else if(Environment.MEDIA_MOUNTED_READ_ONLY.equals(state)){
-            Toast.makeText(
-                context,
-                getResources().getString(R.string.tip_sdcard_is_read_only),
-                Toast.LENGTH_LONG
-            ).show();
-        }else{
-            Toast.makeText(
-                context,
-                getResources().getString(R.string.tip_sdcard_is_not_available),
-                Toast.LENGTH_SHORT
-            ).show();
-        }
-    }
-
-    public void changeBgColor(int color){
-        canvas.drawColor(color);
-        reDraw();
+    public void setDrawing(Drawing drawing){
+        this.drawing = drawing;
     }
 
     /**
@@ -190,52 +163,9 @@ public class PaintView extends View {
         reDraw();
     }
 
-    /**
-     * Save the bitmap to sdcard.
-     */
-    private void saveToSdcard(){
-        File sdcard_path = Environment.getExternalStorageDirectory();
-        String myFloder = getResources().getString(
-            R.string.folder_name_in_sdcard
-        );
-        File paintpad = new File(sdcard_path + "/" + myFloder + "/");
-        try{
-            if(!paintpad.exists()){
-                paintpad.mkdirs();
-            }
-        }catch(Exception e){
-            e.printStackTrace();
-        }
-
-        // Set format
-        SimpleDateFormat format = new SimpleDateFormat("yyyy.MM.dd_HH.mm.ss");
-
-        // Get date
-        Date date = Calendar.getInstance().getTime();
-
-        // Get formatted time stamp
-        String timeStamp = format.format(date);
-
-        String suffixName = ".png";
-
-        String fullPath = "";
-        fullPath = sdcard_path + "/" + myFloder + "/" + timeStamp + suffixName;
-        try{
-            Toast.makeText(
-                context,
-                getResources().getString(R.string.tip_save_to) + fullPath,
-                Toast.LENGTH_LONG
-            ).show();
-            bitmap.compress(
-                Bitmap.CompressFormat.PNG, 100, new FileOutputStream(fullPath)
-            );
-        }catch(FileNotFoundException e){
-            Toast.makeText(
-                context,
-                getResources().getString(R.string.tip_sava_failed) + fullPath,
-                Toast.LENGTH_LONG
-            ).show();
-            e.printStackTrace();
-        }
+    public void changeBgColor(int color){
+        canvas.drawColor(color);
+        reDraw();
     }
+
 }

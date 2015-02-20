@@ -150,6 +150,10 @@ public class PaintView extends View {
         drawing.fingerDown(x, y, canvas);
     }
 
+    public Bitmap getBitmap(){
+        return bitmap.copy(Config.ARGB_8888, true);
+    }
+
     /**
      * Check the sdcard is available or not.
      */

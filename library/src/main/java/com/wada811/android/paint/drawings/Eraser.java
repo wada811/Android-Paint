@@ -4,6 +4,10 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuff.Mode;
+import android.graphics.PorterDuffXfermode;
+import com.wada811.android.paint.tools.Brush;
 
 /**
  * An earser, drawing the track line with the color of the bitmap's background
@@ -17,13 +21,8 @@ public class Eraser extends Drawing {
 
     public Eraser(){
         path = new Path();
-        eraser = new Paint();
-        eraser.setAntiAlias(true);
-        eraser.setDither(true);
-        eraser.setColor(Color.WHITE);
-        eraser.setStyle(Paint.Style.STROKE);
-        eraser.setStrokeJoin(Paint.Join.ROUND);
-        eraser.setStrokeCap(Paint.Cap.ROUND);
+        eraser = new Paint(Brush.getPen());
+        eraser.setXfermode(new PorterDuffXfermode(Mode.CLEAR));
     }
 
     @Override
@@ -47,7 +46,7 @@ public class Eraser extends Drawing {
             startX = x;
             startY = y;
         }
-        this.draw(canvas);
+        draw(canvas);
     }
 
     @Override

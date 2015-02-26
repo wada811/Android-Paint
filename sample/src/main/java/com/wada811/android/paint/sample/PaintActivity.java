@@ -6,17 +6,17 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
-import android.graphics.Paint;
+import android.graphics.Bitmap;
+import android.graphics.Bitmap.Config;
 import android.graphics.Paint.Style;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.preference.PreferenceManager;
 import android.support.v7.app.ActionBarActivity;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.FrameLayout;
 import android.widget.Toast;
 import com.wada811.android.paint.PaintView;
 import com.wada811.android.paint.drawings.Drawing;
@@ -28,14 +28,9 @@ import com.wada811.android.paint.tools.Brush;
 
 public class PaintActivity extends ActionBarActivity implements OnSharedPreferenceChangeListener {
 
-    private static final String TAG = PaintActivity.class.getSimpleName();
-    private static final boolean DEBUG = false;
-
     private PaintView paintView;
     private Drawing drawing;
-    private Paint paint;
     private DrawingFactory drawingFactory;
-    private boolean isFullScreen;
 
     // Define a Dialog id
     private static final int DIALOG_WHAT_TO_DRAW = 1;
@@ -45,19 +40,16 @@ public class PaintActivity extends ActionBarActivity implements OnSharedPreferen
 
     // A handle to an instance of SharedPreferences
     private SharedPreferences prefs;
-    private int mCount;
-
-    private MyHandler mMyHandler;
-
-    private final int TIME_TO_START_OVER_AGAIN = 1000;
-    private final int TIME_BEFORE_EXIT = TIME_TO_START_OVER_AGAIN + 500;
 
     @Override
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_paint);
 
+        FrameLayout container = (FrameLayout)findViewById(R.id.container);
         paintView = new PaintView(this);
-        setContentView(paintView);
+        paintView.setBitmap(Bitmap.createBitmap(480, 480, Config.ARGB_8888));
+        container.addView(paintView);
 
         setDefaultDrawing();
 
@@ -67,13 +59,6 @@ public class PaintActivity extends ActionBarActivity implements OnSharedPreferen
         prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         prefs.registerOnSharedPreferenceChangeListener(this);
 
-        isFullScreen = prefs.getBoolean("check_full_screen", false);
-
-        if(isFullScreen){
-            makeFullScreen();
-        }
-
-        mMyHandler = new MyHandler();
     }
 
     @Override
@@ -84,9 +69,6 @@ public class PaintActivity extends ActionBarActivity implements OnSharedPreferen
         ).show();
     }
 
-    private void makeFullScreen(){
-        //        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-    }
 
     /**
      * Set the default drawing
@@ -108,7 +90,6 @@ public class PaintActivity extends ActionBarActivity implements OnSharedPreferen
                 showDialog(PaintActivity.DIALOG_WHAT_TO_DRAW);
                 return true;
             case KeyEvent.KEYCODE_BACK:
-                // handleBackKeyDown();
                 showDialog(PaintActivity.DIALOG_SAVE_IT_OR_NOT);
                 return true;
             case KeyEvent.KEYCODE_DPAD_CENTER:
@@ -121,57 +102,6 @@ public class PaintActivity extends ActionBarActivity implements OnSharedPreferen
                 return true;
         }
         return false;
-    }
-
-    /**
-     * Handler back key down event. </br> If back key is pressed once in 1
-     * second, exit. Otherwise, save the bitmap before exiting.
-     */
-    private void handleBackKeyDown(){
-        if(mCount > 0){
-            mCount = 0;
-            //TODO
-            //paintView.saveBitmap();
-        }else{
-            mCount++;
-
-            Toast.makeText(
-                this, getResources().getString(
-                    R.string.tip_press_again_to_save_bitmap_before_leaving
-                ), Toast.LENGTH_SHORT
-            ).show();
-
-            Message msg_reset = Message.obtain();
-            msg_reset.what = MyHandler.MSG_RESET;
-            mMyHandler.sendMessageDelayed(msg_reset, TIME_TO_START_OVER_AGAIN);
-
-            Message msg_exit = Message.obtain();
-            msg_exit.what = MyHandler.MSG_EXIT;
-            mMyHandler.sendMessageDelayed(msg_exit, TIME_BEFORE_EXIT);
-
-        }
-
-        // showDialog(DIALOG_WHAT_TO_DRAW);
-    }
-
-    private class MyHandler extends Handler {
-
-        public static final int MSG_RESET = 0;
-        public static final int MSG_EXIT = 1;
-
-        @Override
-        public void handleMessage(Message msg){
-            switch(msg.what){
-                case MSG_RESET:
-                    mCount = 0;
-                    break;
-                case MSG_EXIT:
-                    finish();
-                    break;
-                default:
-                    break;
-            }
-        }
     }
 
     /**
@@ -275,9 +205,7 @@ public class PaintActivity extends ActionBarActivity implements OnSharedPreferen
         DrawingTool drawingTool = DrawingTool.values()[which];
         // TODO drawingTool's name
         Toast.makeText(
-            PaintActivity.this,
-            getResources().getString(R.string.tip_current_is_drawing) + drawingTool,
-            Toast.LENGTH_SHORT
+            PaintActivity.this, getResources().getString(R.string.tip_current_is_drawing) + drawingTool, Toast.LENGTH_SHORT
         ).show();
 
         drawing = drawingFactory.createDrawing(drawingTool);

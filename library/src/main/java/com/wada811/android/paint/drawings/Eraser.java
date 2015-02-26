@@ -1,10 +1,8 @@
 package com.wada811.android.paint.drawings;
 
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
-import android.graphics.PorterDuff;
 import android.graphics.PorterDuff.Mode;
 import android.graphics.PorterDuffXfermode;
 import com.wada811.android.paint.tools.Brush;

@@ -2,14 +2,12 @@ package com.wada811.android.paint.sample;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.Config;
-import android.graphics.Paint;
 import android.graphics.Paint.Style;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -18,25 +16,16 @@ import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.MotionEvent;
-import android.view.View;
-import android.view.View.OnFocusChangeListener;
-import android.view.View.OnTouchListener;
-import android.view.inputmethod.InputMethodManager;
-import android.widget.EditText;
 import android.widget.FrameLayout;
-import android.widget.FrameLayout.LayoutParams;
 import android.widget.Toast;
 import com.wada811.android.paint.PaintView;
 import com.wada811.android.paint.drawings.Drawing;
 import com.wada811.android.paint.drawings.DrawingFactory;
 import com.wada811.android.paint.drawings.DrawingTool;
-import com.wada811.android.paint.drawings.NullDrawing;
-import com.wada811.android.paint.drawings.TextDrawing;
 import com.wada811.android.paint.sample.settings.SettingsActivity;
 import com.wada811.android.paint.tools.Brush;
 
-public class PaintActivity extends ActionBarActivity implements OnSharedPreferenceChangeListener, OnTouchListener {
+public class PaintActivity extends ActionBarActivity implements OnSharedPreferenceChangeListener {
 
     private FrameLayout container;
     private PaintView paintView;
@@ -60,7 +49,6 @@ public class PaintActivity extends ActionBarActivity implements OnSharedPreferen
         container = (FrameLayout)findViewById(R.id.container);
         paintView = new PaintView(this);
         paintView.setBitmap(Bitmap.createBitmap(640, 640, Config.ARGB_8888));
-        paintView.setOnTouchListener(this);
         container.addView(paintView);
 
         setDefaultDrawing();
@@ -73,59 +61,12 @@ public class PaintActivity extends ActionBarActivity implements OnSharedPreferen
 
     }
 
-    @Override
-    public boolean onTouch(View v, MotionEvent event){
-        if(event.getAction() != MotionEvent.ACTION_DOWN){
-            return false;
-        }
-        EditText editText = (EditText)container.findViewWithTag("EditText");
-        if(editText == null){
-            editText = new EditText(this);
-            editText.setLines(1);
-            editText.setMaxLines(1);
-            editText.setMinWidth(300);
-            editText.setTag("EditText");
-            FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
-            float x = event.getX();
-            float y = event.getY();
-            params.topMargin = (int)y;
-            params.leftMargin = (int)x;
-            container.addView(editText, params);
-            editText.setOnFocusChangeListener(
-                new OnFocusChangeListener() {
-                    @Override
-                    public void onFocusChange(View v, boolean hasFocus){
-                        InputMethodManager inputMethodManager = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
-                        inputMethodManager.showSoftInput(v, InputMethodManager.SHOW_FORCED);
-                    }
-                }
-            );
-            editText.requestFocus();
-            return true;
-        }else{
-            InputMethodManager inputMethodManager = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
-            inputMethodManager.hideSoftInputFromWindow(v.getWindowToken(), 0);
-            editText.setOnFocusChangeListener(null);
-            editText.clearFocus();
-            Paint paint = new Paint();
-            paint.setTextSize(editText.getTextSize());
-            float dx = editText.getX() + editText.getPaddingLeft();
-            float dy = editText.getY() + editText.getPaddingTop() - paint.getFontMetrics().top;
-            TextDrawing textDrawing = new TextDrawing(editText.getText().toString(), dx, dy, paint);
-            paintView.setDrawing(textDrawing);
-            container.removeView(editText);
-            paintView.onTouchEvent(event);
-            return false;
-        }
-    }
-
     /**
      * Set the default drawing
      */
     private void setDefaultDrawing(){
         drawingFactory = new DrawingFactory();
         drawing = drawingFactory.createDrawing(DrawingTool.DRAWING_PATHLINE);
-        drawing = new NullDrawing();
         paintView.setDrawing(drawing);
     }
 
@@ -258,6 +199,7 @@ public class PaintActivity extends ActionBarActivity implements OnSharedPreferen
             PaintActivity.this, getResources().getString(R.string.tip_current_is_drawing) + drawingTool, Toast.LENGTH_SHORT
         ).show();
 
+        Brush.getPen().reset();
         drawing = drawingFactory.createDrawing(drawingTool);
 
         if(drawing != null){

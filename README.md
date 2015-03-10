@@ -18,7 +18,7 @@ repositories {
 }
 
 dependencies {
-    compile 'com.wada811:android-paint:0.5.0'
+    compile 'com.wada811:android-paint:0.6.0'
 }
 ```
 

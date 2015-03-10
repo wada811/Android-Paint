@@ -19,7 +19,7 @@ public class Eraser extends Drawing {
 
     public Eraser(){
         path = new Path();
-        eraser = new Paint(Brush.getPen());
+        eraser = Brush.getPen();
         eraser.setXfermode(new PorterDuffXfermode(Mode.CLEAR));
     }
 

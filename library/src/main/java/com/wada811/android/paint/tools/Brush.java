@@ -39,5 +39,6 @@ public class Brush extends Paint {
         brush.setStrokeJoin(Join.ROUND);
         brush.setStrokeCap(Cap.ROUND);
         brush.setStrokeWidth(2);
+        brush.setXfermode(null);
     }
 }
